@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 08, 2021 at 03:47 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Host: localhost
+-- Generation Time: Dec 09, 2021 at 03:10 AM
+-- Server version: 5.5.68-MariaDB
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,10 +21,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `pharmacy`
 --
-CREATE SCHEMA PHARMACY;
-USE PHARMACY;
--- --------------------------------------------------------
 
+-- --------------------------------------------------------
+create schema pharmacy;
+use pharmacy;
 --
 -- Table structure for table `admin_credentials`
 --
@@ -75,8 +76,8 @@ INSERT INTO `customers` (`ID`, `NAME`, `CONTACT_NUMBER`, `ADDRESS`, `DOCTOR_NAME
 
 CREATE TABLE `invoices` (
   `INVOICE_ID` int(11) NOT NULL,
-  `NET_TOTAL` double NOT NULL DEFAULT 0,
-  `INVOICE_DATE` date NOT NULL DEFAULT current_timestamp(),
+  `NET_TOTAL` double NOT NULL DEFAULT '0',
+  `INVOICE_DATE` date NOT NULL,
   `CUSTOMER_ID` int(11) NOT NULL,
   `TOTAL_AMOUNT` double NOT NULL,
   `TOTAL_DISCOUNT` double NOT NULL
