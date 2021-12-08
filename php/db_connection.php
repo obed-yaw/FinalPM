@@ -1,7 +1,7 @@
 <?php
-  $SERVER = 'localhost';
+  $SERVER = 'http://20.108.182.178/';
   $USERNAME = 'root';
-  $PASSWORD = '';
+  $PASSWORD = 'Nuclearbomb2.';
   $DB = 'pharmacy';
 
   @$con = mysqli_connect($SERVER, $USERNAME, $PASSWORD, $DB)

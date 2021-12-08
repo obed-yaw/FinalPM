@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2021 at 08:20 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: Dec 08, 2021 at 03:47 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `pharmacy`
 --
-create schema pharmacy;
-use pharmacy;
+CREATE SCHEMA PHARMACY;
+USE PHARMACY;
 -- --------------------------------------------------------
 
 --
@@ -64,7 +64,8 @@ INSERT INTO `customers` (`ID`, `NAME`, `CONTACT_NUMBER`, `ADDRESS`, `DOCTOR_NAME
 (6, 'Aditya', '7365687269', 'Virar West', 'Xyz', 'Virar West'),
 (11, 'Shivam Tiwari', '6862369896', 'Dadar West', 'Dr Kapoor', 'Dadar East'),
 (13, 'Varsha Suthar', '7622369694', 'Rani Station', 'Dr Ramesh', 'Rani Station'),
-(14, 'Prakash Bhattarai', '9802851472', 'Pokhara-16, Dhikidada', 'Hari Bahadur', 'Matepani-12');
+(14, 'Prakash Bhattarai', '9802851472', 'Pokhara-16, Dhikidada', 'Hari Bahadur', 'Matepani-12'),
+(15, 'James Kudesey', '0557606873', '242 Street', 'John Yamoah', '123 Street');
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,8 @@ CREATE TABLE `invoices` (
 
 INSERT INTO `invoices` (`INVOICE_ID`, `NET_TOTAL`, `INVOICE_DATE`, `CUSTOMER_ID`, `TOTAL_AMOUNT`, `TOTAL_DISCOUNT`) VALUES
 (1, 30, '2021-10-19', 14, 30, 0),
-(2, 2626, '2021-10-19', 6, 2626, 0);
+(2, 2626, '2021-10-19', 6, 2626, 0),
+(3, 2415.92, '2021-12-05', 15, 2626, 210.08);
 
 -- --------------------------------------------------------
 
@@ -108,10 +110,10 @@ CREATE TABLE `medicines` (
 --
 
 INSERT INTO `medicines` (`ID`, `NAME`, `PACKING`, `GENERIC_NAME`, `SUPPLIER_NAME`) VALUES
-(1, 'Nicip Plus', '10tab', 'Paracetamole', 'BDPL PHARMA'),
-(2, 'Crosin', '10tab', 'Hdsgvkvajkcbja', 'Kiran Pharma'),
-(4, 'Dolo 650', '15tab', 'paracetamole', 'BDPL PHARMA'),
-(5, 'Gelusil', '10tab', 'mint fla', 'Desai Pharma');
+(1, 'Base Package', '10tab', 'Base', 'BDPL PHARMA'),
+(2, 'Mid-Level Package', '10tab', 'Mid', 'Kiran Pharma'),
+(4, 'VIP Package', '15tab', 'VIP', 'BDPL PHARMA'),
+(5, 'VVIP Package', '10tab', 'VVIP', 'Desai Pharma');
 
 -- --------------------------------------------------------
 
@@ -134,10 +136,10 @@ CREATE TABLE `medicines_stock` (
 --
 
 INSERT INTO `medicines_stock` (`ID`, `NAME`, `BATCH_ID`, `EXPIRY_DATE`, `QUANTITY`, `MRP`, `RATE`) VALUES
-(1, 'Crosin', 'CROS12', '12/34', 2, 2626, 26),
-(2, 'Gelusil', 'G327', '12/42', 0, 15, 12),
-(3, 'Dolo 650', 'DOLO327', '01/23', 3, 30, 24),
-(4, 'Nicip Plus', 'NI325', '05/22', 3, 32.65, 28);
+(1, 'Base Level', 'CROS12', '12/34', 1, 2626, 26),
+(2, 'Mid-Level', 'G327', '12/42', 0, 15, 12),
+(3, 'VIP Level', 'DOLO327', '01/23', 3, 30, 24),
+(4, 'VVIP Level', 'NI325', '05/22', 3, 32.65, 28);
 
 -- --------------------------------------------------------
 
@@ -157,10 +159,10 @@ CREATE TABLE `purchases` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suppliers`
+-- Table structure for table `workers`
 --
 
-CREATE TABLE `suppliers` (
+CREATE TABLE `workers` (
   `ID` int(11) NOT NULL,
   `NAME` varchar(100) COLLATE utf16_bin NOT NULL,
   `EMAIL` varchar(100) COLLATE utf16_bin NOT NULL,
@@ -169,10 +171,10 @@ CREATE TABLE `suppliers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --
--- Dumping data for table `suppliers`
+-- Dumping data for table `workers`
 --
 
-INSERT INTO `suppliers` (`ID`, `NAME`, `EMAIL`, `CONTACT_NUMBER`, `ADDRESS`) VALUES
+INSERT INTO `workers` (`ID`, `NAME`, `EMAIL`, `CONTACT_NUMBER`, `ADDRESS`) VALUES
 (1, 'Desai Pharma', 'desai@gmail.com', '9948724242', 'Mahim East'),
 (2, 'BDPL PHARMA', 'bdpl@gmail.com', '8645632963', 'Santacruz West'),
 (9, 'Kiran Pharma', 'kiranpharma@gmail.com', '7638683637', 'Andheri East'),
@@ -188,7 +190,11 @@ INSERT INTO `suppliers` (`ID`, `NAME`, `EMAIL`, `CONTACT_NUMBER`, `ADDRESS`) VAL
 (25, 'Jnentjrtj', 'nena ena', '3462462642', 'Ebsbsdbsdndsnsdfns'),
 (26, 'Jerthjrtjtjr', 'nena ena', '3462462642', 'Ebsbsdbsdndsnsdfns'),
 (28, 'Gahgkakbvkv', 'nena ena', '3462462642', 'Ebsbsdbsdndsnsdfns'),
-(29, 'Hywhwhrhdw', 'nena ena', '3462462642', 'Ebsbsdbsdndsnsdfns');
+(29, 'Hywhwhrhdw', 'nena ena', '3462462642', 'Ebsbsdbsdndsnsdfns'),
+(30, 'Tawiah Yamoah', 'tyams@', '0557606873', '242 Ford Street'),
+(31, 'X', '', '1234567890', '2ssssssssssssssss'),
+(32, 'Xx', '', '0557606873', 'Ddddddddddddddd'),
+(33, 'J', '', '0557606873', 'Tt66666666666');
 
 --
 -- Indexes for dumped tables
@@ -232,9 +238,9 @@ ALTER TABLE `purchases`
   ADD PRIMARY KEY (`VOUCHER_NUMBER`);
 
 --
--- Indexes for table `suppliers`
+-- Indexes for table `workers`
 --
-ALTER TABLE `suppliers`
+ALTER TABLE `workers`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -245,13 +251,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `INVOICE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `INVOICE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `medicines`
@@ -272,10 +278,10 @@ ALTER TABLE `purchases`
   MODIFY `VOUCHER_NUMBER` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `suppliers`
+-- AUTO_INCREMENT for table `workers`
 --
-ALTER TABLE `suppliers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+ALTER TABLE `workers`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
