@@ -8,7 +8,7 @@ xhttp.send();
 
 //alert(xhttp.responseText);
 if(xhttp.responseText == "")
-  window.location.href = "http://localhost/Finalpm/index.html";
+  window.location.href = "http://localhost/FinalPM/index.html";
 
 if(xhttp.responseText == "false")
-  window.location.href = "http://localhost/Finalpm/login.php";
+  window.location.href = "http://localhost/FinalPM/login.php";
